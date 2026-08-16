@@ -1,0 +1,81 @@
+==============================================================
+  BhoomiAI — GDD Feature Engineering Model Report
+==============================================================
+
+  FEATURE ENGINEERING SUMMARY
+  ----------------------------
+  Base Temperature (GDD): 10.0°C
+  Removed features: ['Temp_min_C', 'Temp_max_C', 'Sow_temp_min', 'Sow_temp_max', 'Harvest_temp_min', 'Harvest_temp_max']
+  Added features: ['mean_temp', 'gdd']
+
+  Dataset       : dataset\crop_train_gdd.csv
+  Total samples : 960
+  Features      : 14
+  Classes       : ['Maize', 'Rice', 'Sugarcane', 'Wheat']
+
+  FINAL FEATURE LIST
+  -------------------
+     1. mean_temp
+     2. gdd
+     3. Rain_min_cm
+     4. Rain_max_cm
+     5. Sand_pct
+     6. Clay_pct
+     7. Silt_pct
+     8. Nitrogen_N_kg_ha
+     9. Phosphorus_P_kg_ha
+    10. Potassium_K_kg_ha
+    11. Humidity_pct
+    12. pH
+    13. Season_code
+    14. Agro_Zone
+
+──────────────────────────────────────────────────────────────
+  MODEL PERFORMANCE
+──────────────────────────────────────────────────────────────
+  Train accuracy        : 100.00 %
+  Test  accuracy        : 99.48 %
+  5-Fold CV accuracy    : 99.90 % (± 0.21 %)
+
+──────────────────────────────────────────────────────────────
+  Classification Report (Test Set)
+──────────────────────────────────────────────────────────────
+              precision    recall  f1-score   support
+
+       Maize       1.00      1.00      1.00        50
+        Rice       1.00      0.98      0.99        46
+   Sugarcane       0.98      1.00      0.99        48
+       Wheat       1.00      1.00      1.00        48
+
+    accuracy                           0.99       192
+   macro avg       0.99      0.99      0.99       192
+weighted avg       0.99      0.99      0.99       192
+
+──────────────────────────────────────────────────────────────
+  Confusion Matrix
+──────────────────────────────────────────────────────────────
+              Maize        Rice   Sugarcane       Wheat
+   Maize         50           0           0           0
+    Rice          0          45           1           0
+Sugarcane          0           0          48           0
+   Wheat          0           0           0          48
+
+──────────────────────────────────────────────────────────────
+  Feature Importances
+──────────────────────────────────────────────────────────────
+  Rain_max_cm              0.1760  ████████
+  Rain_min_cm              0.1448  ███████
+  Season_code              0.1157  █████
+  mean_temp                0.1052  █████
+  gdd                      0.1024  █████
+  Clay_pct                 0.0719  ███
+  Sand_pct                 0.0607  ███
+  pH                       0.0559  ██
+  Phosphorus_P_kg_ha       0.0486  ██
+  Potassium_K_kg_ha        0.0483  ██
+  Humidity_pct             0.0437  ██
+  Nitrogen_N_kg_ha         0.0234  █
+  Silt_pct                 0.0023  
+  Agro_Zone                0.0008  
+
+==============================================================

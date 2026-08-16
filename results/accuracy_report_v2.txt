@@ -1,0 +1,95 @@
+========================================================================
+  BhoomiAI v2 -- Crop Prediction Model Evaluation Report
+========================================================================
+
+  PIPELINE CHANGES vs v1
+  ----------------------
+  [OK] One-Hot encoding for Season + Agro_Zone  (no ordinal bias)
+  [OK] rain_avg replaces rain_min/rain_max       (removes correlated pair)
+  [OK] 3 new features: temp_rain_ratio, npk_sum, soil_texture_index
+  [OK] StandardScaler on all numeric features
+  [OK] Authentic ICAR/NBSS data -- 300 samples/crop x 4 crops
+  [OK] RandomForest with class_weight='balanced', max_depth=12
+
+  Dataset       : dataset\crop_train_v2.csv
+  Total samples : 1200
+  Features      : 30
+  Classes       : ['Maize', 'Rice', 'Sugarcane', 'Wheat']
+
+  MODEL PERFORMANCE
+  -----------------
+  Train accuracy    : 99.48 %
+  Test  accuracy    : 98.33 %
+  5-Fold CV mean    : 99.08 % (+/- 0.41 %)
+
+  CLASSIFICATION REPORT (Test Set)
+  ---------------------------------
+              precision    recall  f1-score   support
+
+       Maize       1.00      0.93      0.97        60
+        Rice       0.97      1.00      0.98        60
+   Sugarcane       1.00      1.00      1.00        60
+       Wheat       0.97      1.00      0.98        60
+
+    accuracy                           0.98       240
+   macro avg       0.98      0.98      0.98       240
+weighted avg       0.98      0.98      0.98       240
+
+  CONFUSION MATRIX (rows=actual, cols=predicted)
+  ------------------------------------------------
+                Maize        Rice   Sugarcane       Wheat
+     Maize         56           2           0           2
+      Rice          0          60           0           0
+ Sugarcane          0           0          60           0
+     Wheat          0           0           0          60
+
+  FEATURE IMPORTANCES (all features including OHE columns)
+  ----------------------------------------------------------
+  rain_avg                                0.1282  ########
+  P_kg_ha                                 0.1162  ########
+  Humidity_pct                            0.1127  #######
+  Season_Kharif                           0.1038  #######
+  K_kg_ha                                 0.0977  ######
+  mean_temp                               0.0857  #####
+  Season_Rabi                             0.0841  #####
+  npk_sum                                 0.0739  #####
+  pH                                      0.0646  ####
+  N_kg_ha                                 0.0465  ###
+  temp_rain_ratio                         0.0339  ##
+  Clay_pct                                0.0086  
+  Agro_Zone_Zone_0                        0.0062  
+  Sand_pct                                0.0041  
+  Agro_Zone_Zone_6                        0.0040  
+  soil_texture_index                      0.0040  
+  Silt_pct                                0.0037  
+  Agro_Zone_Zone_5                        0.0031  
+  Agro_Zone_Zone_4                        0.0030  
+  Agro_Zone_Zone_2                        0.0027  
+  Agro_Zone_Zone_14                       0.0026  
+  Agro_Zone_Zone_9                        0.0025  
+  Agro_Zone_Zone_8                        0.0020  
+  Agro_Zone_Zone_13                       0.0012  
+  Agro_Zone_Zone_7                        0.0011  
+  Agro_Zone_Zone_3                        0.0010  
+  Agro_Zone_Zone_12                       0.0010  
+  Agro_Zone_Zone_11                       0.0007  
+  Agro_Zone_Zone_1                        0.0006  
+  Agro_Zone_Zone_10                       0.0005  
+
+  AGGREGATED GROUP IMPORTANCES
+  -----------------------------
+  Agro-Zone (all OHE cols)   : 3.21 %
+  Rainfall (rain_avg + ratio) : 16.21 %
+  NPK (N, P, K + npk_sum)    : 33.43 %
+
+
+========================================================================
+
+  SENSITIVITY TEST RESULTS
+  -------------------------
+  [OK]  rainfall_sensitivity               : PASS
+  [OK]  zone_sensitivity                   : PASS
+  [OK]  npk_sensitivity                    : PASS
+  [OK]  season_sensitivity                 : PASS
+
+========================================================================
